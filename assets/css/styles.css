@@ -24,6 +24,9 @@
   --transition-slow: all 0.5s ease;
   --font-heading: "Cormorant Garamond", serif;
   --font-body: "Montserrat", sans-serif;
+  
+  /* Forzar modo claro en todos los dispositivos */
+  color-scheme: light only;
 }
 
 * {
@@ -35,6 +38,8 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  /* Asegurar que el HTML también use modo claro */
+  color-scheme: light only;
 }
 
 body {
@@ -44,6 +49,8 @@ body {
   font-weight: 300;
   background-color: var(--light-bg);
   overflow-x: hidden;
+  /* Forzar modo claro en el body */
+  color-scheme: light only;
 }
 
 h1,

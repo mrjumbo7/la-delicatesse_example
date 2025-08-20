@@ -1,4 +1,4 @@
-/* Modal Styles */
+/* Modal Styles - Versión mejorada con scroll responsive */
 .modal {
     position: fixed;
     z-index: 1000;
@@ -10,6 +10,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Mejoras para scroll en modales */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem;
 }
 
 .modal.hidden {
@@ -21,9 +26,39 @@
     border-radius: 8px;
     width: 90%;
     max-width: 400px;
-    max-height: 90vh;
+    /* Mejoras de altura y scroll */
+    max-height: calc(100vh - 2rem);
+    min-height: auto;
     overflow-y: auto;
+    overflow-x: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    /* Scroll suave */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) transparent;
+    /* Centrado mejorado */
+    margin: auto;
+    position: relative;
+}
+
+/* Scrollbar personalizado para modales */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: rgba(139, 90, 43, 0.1);
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
 }
 
 .modal-header {
@@ -32,6 +67,129 @@
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid #eee;
+    /* Fijar header al top */
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-body {
+    padding: 20px;
+    /* Asegurar espacio suficiente para scroll */
+    min-height: auto;
+}
+
+/* Responsive Design para Modales */
+@media (max-width: 768px) {
+    .modal {
+        padding: 0.5rem;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-width: none;
+        max-height: calc(100vh - 1rem);
+        margin-top: 0;
+        border-radius: 12px;
+    }
+    
+    .modal-header {
+        padding: 16px;
+        border-radius: 12px 12px 0 0;
+    }
+    
+    .modal-body {
+        padding: 16px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal {
+        padding: 0.25rem;
+        padding-top: 1rem;
+    }
+    
+    .modal-content {
+        width: 98%;
+        max-height: calc(100vh - 0.5rem);
+        border-radius: 8px;
+    }
+    
+    .modal-header {
+        padding: 12px;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .modal-body {
+        padding: 12px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .close {
+        font-size: 20px;
+    }
+}
+
+/* Mejoras específicas para modales grandes (booking, etc.) */
+.modal-content.large {
+    max-width: 800px;
+    width: 95%;
+}
+
+@media (max-width: 768px) {
+    .modal-content.large {
+        max-width: none;
+        width: 95%;
+    }
+}
+
+/* Mejoras para formularios dentro de modales */
+.modal .form-group {
+    margin-bottom: 16px;
+}
+
+.modal .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .modal .form-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Asegurar que los botones no se corten */
+.modal .btn {
+    min-height: 44px;
+    touch-action: manipulation;
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+    .modal-content {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .close {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .modal-header h3 {
