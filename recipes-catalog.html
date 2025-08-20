@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Recetas - La Délicatesse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed w-full top-0 z-40" style="box-shadow: var(--shadow);">
+        <div class="container">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/la-delicateesse.svg" alt="La Délicatesse" class="logo-svg">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="nav-container">
+                    <nav>
+                        <ul>
+                            <li><a href="index.html" data-translate="navbar.home">Inicio</a></li>
+                            <li><a href="chefs-catalog.html" data-translate="navbar.chefs">Chefs</a></li>
+                            <li><a href="#" class="active" data-translate="navbar.recipes">Recetas</a></li>
+                            <li>
+                            <button id="languageToggle" onclick="changeLanguage(window.currentLanguage === 'en' ? 'es' : 'en')" class="btn btn-outline-sm" data-translate="languageToggle">EN</button>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <!-- Auth Buttons -->
+                    <div id="authButtons" class="auth-buttons">
+                        <button onclick="openModal('loginModal')" class="btn btn-primary" data-translate="auth.login">
+                            Iniciar Sesión
+                        </button>
+                        <button onclick="openModal('registerModal')" class="btn btn-outline" data-translate="auth.register">
+                            Registrarse
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-toggle">
+                    <span id="menuIcon">☰</span>
+                    <span id="closeIcon" style="display: none;">✕</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24">
+        <section class="py-12">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-translate="recipes_catalog.badge">Nuestras Recetas</div>
+                    <h2 data-translate="recipes_catalog.title">Catálogo Completo de Recetas</h2>
+                    <p data-translate="recipes_catalog.subtitle">Explora nuestra colección completa de recetas exclusivas creadas por nuestros chefs expertos.</p>
+                    <div class="header-decoration">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="mb-12 flex flex-col lg:flex-row gap-4 justify-center max-w-4xl mx-auto">
+                    <div class="form-group flex-1">
+                        <input type="text" id="searchRecipes" placeholder="Buscar por nombre o ingredientes..." data-translate-placeholder="recipes_catalog.search_placeholder" class="w-full">
+                    </div>
+                    <div class="form-group">
+                        <select id="filterPrice" class="w-full lg:w-auto">
+                            <option value="" data-translate="recipes_catalog.all_prices">Todos los precios</option>
+                            <option value="low" data-translate="recipes_catalog.up_to_20">Hasta $20</option>
+                            <option value="medium" data-translate="recipes_catalog.21_to_50">$21 - $50</option>
+                            <option value="high" data-translate="recipes_catalog.over_50">Más de $50</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="filterDifficulty" class="w-full lg:w-auto">
+                            <option value="" data-translate="recipes_catalog.all_difficulties">Todas las dificultades</option>
+                            <option value="Fácil" data-translate="recipes_catalog.easy">Fácil</option>
+                            <option value="Intermedio" data-translate="recipes_catalog.intermediate">Intermedio</option>
+                            <option value="Avanzado" data-translate="recipes_catalog.advanced">Avanzado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="filterTime" class="w-full lg:w-auto">
+                            <option value="" data-translate="recipes_catalog.any_time">Cualquier tiempo</option>
+                            <option value="30" data-translate="recipes_catalog.up_to_30min">Hasta 30 min</option>
+                            <option value="60" data-translate="recipes_catalog.up_to_1hour">Hasta 1 hora</option>
+                            <option value="120" data-translate="recipes_catalog.up_to_2hours">Hasta 2 horas</option>
+                            <option value="121" data-translate="recipes_catalog.over_2hours">Más de 2 horas</option>
+                        </select>
+                    </div>
+                    <button onclick="filterRecipes()" class="btn btn-primary" data-translate="recipes_catalog.search_button">
+                        Buscar
+                    </button>
+                </div>
+
+                <!-- Grid de Recetas -->
+                <div id="recetasGrid" class="recipe-cards">
+                    <!-- Las recetas se cargarán dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--dark-bg); color: var(--light-text);" class="py-16">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 data-translate="footer.about_us">Acerca de Nosotros</h3>
+                    <p data-translate="footer.description">Conectamos clientes con chefs certificados para experiencias gastronómicas únicas en la comodidad de tu hogar.</p>
+                </div>
+                <div class="footer-column">
+                    <h3 data-translate="footer.quick_links">Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html" data-translate="navbar.home">Inicio</a></li>
+                        <li><a href="chefs-catalog.html" data-translate="navbar.chefs">Chefs</a></li>
+                        <li><a href="#" data-translate="navbar.recipes">Recetas</a></li>
+                        <li><a href="index.html#contacto" data-translate="navbar.contact">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright" data-translate="footer.copyright">
+                    &copy; 2025 La Délicatesse. Todos los derechos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Recipe Detail Modal -->
+    <div id="recipeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="recipe-modal-header p-6 border-b">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h2 id="modalRecipeTitle" class="text-3xl font-bold mb-2" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="recipe_modal.loading">Cargando...</h2>
+                            <p id="modalRecipeChef" class="text-lg" style="color: var(--text-light);" data-translate="recipe_modal.by_chef">Por Chef...</p>
+                        </div>
+                        <button onclick="closeModal('recipeModal')" class="text-gray-500 hover:text-gray-700 text-2xl">
+                            ×
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="recipe-modal-content p-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="recipe-modal-image">
+                            <img id="modalRecipeImage" src="" alt="" class="w-full h-64 object-cover rounded-lg">
+                            <div class="mt-4 flex gap-4">
+                                <div class="flex items-center gap-2">
+                                    <span>⏱️</span>
+                                    <span id="modalRecipeTime">0 min</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span>👨‍🍳</span>
+                                    <span id="modalRecipeDifficulty">Fácil</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span>💰</span>
+                                    <span id="modalRecipePrice" class="font-bold" style="color: var(--accent-color);">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recipe-modal-info">
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-3" style="color: var(--primary-color);" data-translate="recipe_modal.description">Descripción</h3>
+                                <p id="modalRecipeDescription" style="color: var(--text-color);" data-translate="recipe_modal.loading_description">Cargando descripción...</p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-3" style="color: var(--primary-color);" data-translate="recipe_modal.ingredients">Ingredientes</h3>
+                                <ul id="modalRecipeIngredients" class="list-disc list-inside space-y-1" style="color: var(--text-color);">
+                                    <li data-translate="recipe_modal.loading_ingredients">Cargando ingredientes...</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-3" style="color: var(--primary-color);" data-translate="recipe_modal.instructions">Instrucciones</h3>
+                                <ol id="modalRecipeInstructions" class="list-decimal list-inside space-y-2" style="color: var(--text-color);">
+                                    <li data-translate="recipe_modal.loading_instructions">Cargando instrucciones...</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <button id="modalBuyRecipeBtn" class="btn btn-primary flex-1" data-translate="recipe_modal.buy_recipe">
+                                    Comprar Receta
+                                </button>
+                                <button id="modalAddToFavoritesBtn" class="btn btn-outline" data-translate="recipe_modal.favorites">
+                                    ❤️ Favoritos
+                                </button>
+                            </div>
+                            <div class="mt-3">
+                                <button id="modalViewDetailBtn" class="btn btn-secondary w-full" data-translate="recipe_modal.view_full_detail">
+                                    Ver Detalle Completo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold" style="color: var(--primary-color);" data-translate="login_modal.title">Iniciar Sesión</h2>
+                    <button onclick="closeModal('loginModal')" class="text-gray-500 hover:text-gray-700 text-2xl">
+                        ×
+                    </button>
+                </div>
+                
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2" data-translate="login_modal.email">Email</label>
+                        <input type="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2" data-translate="login_modal.password">Contraseña</label>
+                        <input type="password" name="password" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" data-translate="login_modal.login_button">
+                        Iniciar Sesión
+                    </button>
+                </form>
+                
+                <div class="mt-4 text-center">
+                    <p><span data-translate="login_modal.no_account">¿No tienes cuenta?</span> 
+                        <a href="#" onclick="closeModal('loginModal'); openModal('registerModal')" class="text-primary hover:underline" data-translate="login_modal.register_link">Regístrate aquí</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold" style="color: var(--primary-color);" data-translate="register_modal.title">Registrarse</h2>
+                    <button onclick="closeModal('registerModal')" class="text-gray-500 hover:text-gray-700 text-2xl">
+                        ×
+                    </button>
+                </div>
+                
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2" data-translate="register_modal.full_name">Nombre Completo</label>
+                        <input type="text" name="nombre" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2" data-translate="register_modal.email">Email</label>
+                        <input type="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2" data-translate="register_modal.phone">Teléfono</label>
+                        <input type="tel" name="telefono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2" data-translate="register_modal.user_type">Tipo de Usuario</label>
+                        <select name="tipo_usuario" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+                            <option value="" data-translate="register_modal.select">Seleccionar...</option>
+                            <option value="cliente" data-translate="register_modal.client">Cliente</option>
+                            <option value="chef" data-translate="register_modal.chef">Chef</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2" data-translate="register_modal.password">Contraseña</label>
+                        <input type="password" name="password" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" data-translate="register_modal.create_account">
+                        Crear Cuenta
+                    </button>
+                </form>
+                
+                <div class="mt-4 text-center">
+                    <p><span data-translate="register_modal.have_account">¿Ya tienes cuenta?</span> 
+                        <a href="#" onclick="closeModal('registerModal'); openModal('loginModal')" class="text-primary hover:underline" data-translate="register_modal.login_link">Inicia sesión aquí</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/catalog.js"></script>
+</body>
+</html>

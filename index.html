@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Délicatesse - Chefs a Domicilio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/slider.css">
+    <script src="assets/js/translations.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed w-full top-0 z-40" style="box-shadow: var(--shadow);">
+        <div class="container">
+            <div class="flex justify-between items-center py-4">
+                <div class="logo">
+                    <img src="assets/images/la-delicateesse.svg" alt="La Délicatesse" class="logo-svg">
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="nav-container">
+                    <nav>
+                        <ul>
+                            <li><a href="#inicio" data-translate="inicio">Inicio</a></li>
+                            <li><a href="#chefs" data-translate="chefs">Chefs</a></li>
+                            <li><a href="#recetas" data-translate="recetas">Recetas</a></li>
+                            <li>
+                            <button id="languageToggle" onclick="changeLanguage(window.currentLanguage === 'en' ? 'es' : 'en')" class="btn btn-outline-sm" data-translate="languageToggle">ES</button>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <!-- Desktop Auth Buttons -->
+                    <div id="authButtons" class="auth-buttons">
+                        <button onclick="openModal('loginModal')" class="btn btn-primary" data-translate="iniciar_sesion">
+                            Iniciar Sesión
+                        </button>
+                        <button onclick="openModal('registerModal')" class="btn btn-outline" data-translate="registrarse">
+                            Registrarse
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-toggle">
+                    <span id="menuIcon">☰</span>
+                    <span id="closeIcon" style="display: none;">✕</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu overlay -->
+        <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" data-translate="experiencia_culinaria">Experiencia Culinaria Premium</div>
+                <h2><span data-translate="experiencias_gastronomicas">Experiencias Gastronómicas</span> <span class="accent-text" data-translate="exclusivas">Exclusivas</span></h2>
+                <p data-translate="hero_description">
+                    Conectamos clientes exigentes con chefs certificados para crear experiencias culinarias únicas en la comodidad de tu hogar.
+                </p>
+                <div class="hero-buttons">
+                    <button onclick="scrollToSection('chefs')" class="btn btn-secondary">
+                        <span data-translate="explorar_chefs">Explorar Chefs</span>
+                    </button>
+                    <button onclick="openModal('registerModal')" class="btn btn-outline-light">
+                        <span data-translate="unete_chef">Únete como Chef</span>
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label" data-translate="chefs_certificados">Chefs Certificados</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label" data-translate="servicios_realizados">Servicios Realizados</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-number">4.9</div>
+                        <div class="stat-label" data-translate="calificacion_promedio">Calificación Promedio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span data-translate="descubre_mas">Descubre Más</span>
+            <div class="scroll-icon">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20" style="background-color: var(--gray-bg);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-translate="features.badge">Nuestras Ventajas</div>
+                <h2 data-translate="features.title">¿Por qué elegir La Délicatesse?</h2>
+                <p data-translate="features.subtitle">Ofrecemos una experiencia gastronómica única con los más altos estándares de calidad y profesionalismo.</p>
+                <div class="header-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center p-8 rounded-lg hover:shadow-lg transition card-hover" style="background-color: var(--light-bg); border-radius: var(--border-radius-lg);">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(139, 90, 43, 0.1);">
+                        <svg class="w-10 h-10" style="color: var(--primary-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-semibold mb-4" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="features.certified_chefs.title">Chefs Certificados</h4>
+                    <p style="color: var(--text-light);" data-translate="features.certified_chefs.description">Todos nuestros chefs están certificados y tienen experiencia comprobada en alta cocina internacional.</p>
+                </div>
+                
+                <div class="text-center p-8 rounded-lg hover:shadow-lg transition card-hover" style="background-color: var(--light-bg); border-radius: var(--border-radius-lg);">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(139, 90, 43, 0.1);">
+                        <svg class="w-10 h-10" style="color: var(--primary-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-semibold mb-4" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="features.secure_payments.title">Pagos Seguros</h4>
+                    <p style="color: var(--text-light);" data-translate="features.secure_payments.description">Sistema de pagos encriptado y seguro. Tu dinero está protegido hasta completar el servicio.</p>
+                </div>
+                
+                <div class="text-center p-8 rounded-lg hover:shadow-lg transition card-hover" style="background-color: var(--light-bg); border-radius: var(--border-radius-lg);">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(139, 90, 43, 0.1);">
+                        <svg class="w-10 h-10" style="color: var(--primary-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-semibold mb-4" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="features.quality.title">Calidad Garantizada</h4>
+                    <p style="color: var(--text-light);" data-translate="features.quality.description">Sistema de calificaciones y reseñas que garantiza la mejor experiencia gastronómica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso de Reserva Section -->
+    <section class="py-20">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-translate="booking.badge">Proceso Simple</div>
+                <h2 data-translate="booking.title">¿Cómo funciona nuestro servicio?</h2>
+                <p data-translate="booking.subtitle">Reservar un chef a domicilio nunca fue tan fácil. Sigue estos simples pasos para disfrutar de una experiencia gastronómica única.</p>
+                <div class="header-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition card-hover" style="background-color: var(--light-bg); border-radius: var(--border-radius-lg);">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(139, 90, 43, 0.1);">
+                        <div class="step-number" style="background-color: var(--primary-color); color: var(--light-text); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">1</div>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="booking.step1.title">Explora Chefs</h4>
+                    <p style="color: var(--text-light);" data-translate="booking.step1.description">Navega por nuestro catálogo de chefs certificados y encuentra el que mejor se adapte a tus gustos y presupuesto.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition card-hover" style="background-color: var(--light-bg); border-radius: var(--border-radius-lg);">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(139, 90, 43, 0.1);">
+                        <div class="step-number" style="background-color: var(--primary-color); color: var(--light-text); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">2</div>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="booking.step2.title">Selecciona Fecha</h4>
+                    <p style="color: var(--text-light);" data-translate="booking.step2.description">Elige la fecha y hora que mejor te convenga. Nuestros chefs tienen horarios flexibles para adaptarse a tu agenda.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition card-hover" style="background-color: var(--light-bg); border-radius: var(--border-radius-lg);">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(139, 90, 43, 0.1);">
+                        <div class="step-number" style="background-color: var(--primary-color); color: var(--light-text); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">3</div>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="booking.step3.title">Personaliza Menú</h4>
+                    <p style="color: var(--text-light);" data-translate="booking.step3.description">Trabaja directamente con tu chef para crear un menú personalizado que se adapte a tus preferencias y restricciones alimentarias.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-lg hover:shadow-lg transition card-hover" style="background-color: var(--light-bg); border-radius: var(--border-radius-lg);">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(139, 90, 43, 0.1);">
+                        <div class="step-number" style="background-color: var(--primary-color); color: var(--light-text); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">4</div>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="booking.step4.title">Disfruta la Experiencia</h4>
+                    <p style="color: var(--text-light);" data-translate="booking.step4.description">Relájate mientras tu chef prepara una experiencia gastronómica única en la comodidad de tu hogar.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <div class="inline-flex items-center gap-4 p-6 rounded-lg" style="background-color: var(--secondary-color); border-radius: var(--border-radius-lg);">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-6 h-6" style="color: var(--accent-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span style="color: var(--text-color); font-weight: 500;" data-translate="booking.time">Tiempo promedio de reserva: 24-48 horas</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-6 h-6" style="color: var(--accent-color);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span style="color: var(--text-color); font-weight: 500;" data-translate="booking.cancellation">Cancelación gratuita hasta 12 horas antes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chefs Section -->
+    <section id="chefs" class="featured-chefs">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-translate="chefs.badge">Nuestro Equipo</div>
+                <h2 data-translate="chefs.title">Chefs Destacados</h2>
+                <p data-translate="chefs.subtitle">Conoce a nuestros talentosos chefs, cada uno especializado en diferentes tradiciones culinarias del mundo.</p>
+                <div class="header-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="mb-12 flex flex-col lg:flex-row gap-4 justify-center max-w-4xl mx-auto">
+                <div class="form-group flex-1">
+                    <input type="text" id="searchChefs" placeholder="Buscar por especialidad..." class="w-full" data-translate-placeholder="chefs.search_placeholder">
+                </div>
+                <div class="form-group">
+                    <select id="filterLocation" class="w-full lg:w-auto">
+                        <option value="" data-translate="chefs.filter.all_locations">Todas las ubicaciones</option>
+                        <option value="San Salvador" data-translate="chefs.filter.san_salvador">San Salvador</option>
+                        <option value="Santa Tecla" data-translate="chefs.filter.santa_tecla">Santa Tecla</option>
+                        <option value="Antiguo Cuscatlán" data-translate="chefs.filter.antiguo_cuscatlan">Antiguo Cuscatlán</option>
+                    </select>
+                </div>
+                <button onclick="searchChefs()" class="btn btn-primary" data-translate="chefs.search_button">
+                    Buscar
+                </button>
+            </div>
+            
+            <!-- Chefs Grid -->
+            <div id="chefsGrid" class="chef-cards">
+                <!-- Los chefs se cargarán dinámicamente -->
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="chefs-catalog.html" class="btn btn-primary" style="display: inline-block; width: 50%; margin: 0 auto;" data-translate="ver_todos_chefs">
+                    Ver Todos los Chefs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recetas Section -->
+    <section id="recetas" class="featured-recipes">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-translate="recipes.badge">Sabores Únicos</div>
+                <h2 data-translate="recipes.title">Recetas Exclusivas</h2>
+                <p data-translate="recipes.subtitle">Descubre recetas únicas creadas por nuestros chefs expertos, disponibles para que las prepares en casa.</p>
+                <div class="header-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Filtros de Recetas -->
+            <div class="mb-12 flex flex-col lg:flex-row gap-4 justify-center max-w-4xl mx-auto">
+                <div class="form-group">
+                    <select id="filterPrice" class="w-full lg:w-auto" onchange="filterRecipes()">
+                        <option value="" data-translate="recipes.filter.all_prices">Todos los precios</option>
+                        <option value="low" data-translate="recipes.filter.price_low">Hasta $20</option>
+                        <option value="medium" data-translate="recipes.filter.price_medium">$21 - $50</option>
+                        <option value="high" data-translate="recipes.filter.price_high">Más de $50</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="filterDifficulty" class="w-full lg:w-auto" onchange="filterRecipes()">
+                        <option value="" data-translate="recipes.filter.all_difficulties">Todas las dificultades</option>
+                        <option value="Fácil" data-translate="recipes.filter.easy">Fácil</option>
+                        <option value="Intermedio" data-translate="recipes.filter.medium">Intermedio</option>
+                        <option value="Dificil" data-translate="recipes.filter.hard">Dificil</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="recetasGrid" class="recipe-cards">
+                <!-- Las recetas se cargarán dinámicamente -->
+            </div>
+
+            <div class="text-center mt-8">
+                <a href="recipes-catalog.html" class="btn btn-primary" style="display: inline-block; width: 50%; margin: 0 auto;" data-translate="recipes.view_all">
+                    Ver Todas las Recetas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20" style="background-color: var(--light-bg);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-translate="testimonials.badge">Testimonios</div>
+                <h2 data-translate="testimonials.title">Lo que dicen nuestros clientes</h2>
+                <p data-translate="testimonials.subtitle">Experiencias reales de quienes han disfrutado nuestros servicios gastronómicos.</p>
+                <div class="header-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">
+                            ★★★★★
+                        </div>
+                        <p data-translate="testimonials.testimonial1">"Una experiencia increíble. El chef preparó una cena espectacular en casa. Definitivamente volveremos a contratar el servicio."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <span>M</span>
+                        </div>
+                        <div>
+                            <div class="author-name" data-translate="testimonials.author1">María González</div>
+                            <div class="author-title" data-translate="testimonials.client">Cliente</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">
+                            ★★★★★
+                        </div>
+                        <p data-translate="testimonials.testimonial2">"Profesionalismo y calidad excepcional. El chef no solo cocinó delicioso, sino que también nos enseñó técnicas culinarias."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <span>C</span>
+                        </div>
+                        <div>
+                            <div class="author-name" data-translate="testimonials.author2">Carlos Mendoza</div>
+                            <div class="author-title" data-translate="testimonials.client">Cliente</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">
+                            ★★★★★
+                        </div>
+                        <p data-translate="testimonials.testimonial3">"La plataforma me ha permitido conectar con clientes increíbles y compartir mi pasión por la cocina. Excelente experiencia."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <span>A</span>
+                        </div>
+                        <div>
+                            <div class="author-name" data-translate="testimonials.author3">Ana Rodríguez</div>
+                            <div class="author-title" data-translate="testimonials.chef">Chef</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--dark-bg); color: var(--light-text);" class="py-16">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <span>D</span>
+                    </div>
+                    <h2>La Délicatesse</h2>
+                </div>
+                <div class="footer-tagline" data-translate="footer.tagline">
+                    Experiencias gastronómicas que trascienden
+                </div>
+            </div>
+            
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 data-translate="footer.about_us">Acerca de Nosotros</h3>
+                    <p data-translate="footer.about_description">Conectamos clientes con chefs certificados para experiencias gastronómicas únicas en la comodidad de tu hogar.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">t</a>
+                        <a href="#" class="social-icon">i</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 data-translate="footer.quick_links">Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio" data-translate="navbar.home">Inicio</a></li>
+                        <li><a href="#chefs" data-translate="navbar.chefs">Chefs</a></li>
+                        <li><a href="#recetas" data-translate="navbar.recipes">Recetas</a></li>
+                        <li><a href="chefs-catalog.html" data-translate="footer.chefs_catalog">Catálogo de Chefs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-translate="footer.support">Soporte</h3>
+                    <ul>
+                        <li><a href="#" data-translate="footer.help_center">Centro de Ayuda</a></li>
+                        <li><a href="#" data-translate="footer.terms">Términos de Servicio</a></li>
+                        <li><a href="#" data-translate="footer.privacy">Política de Privacidad</a></li>
+                        <li><a href="#" data-translate="footer.faq">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-translate="footer.contact">Contacto</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@ladelicatesse.com</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>+503 2222-3333</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span data-translate="footer.address">San Salvador, El Salvador</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright" data-translate="footer.copyright">
+                    &copy; 2025 La Délicatesse. Todos los derechos reservados.
+                </div>
+                <div class="footer-links">
+                    <a href="#" data-translate="footer.terms_link">Términos</a>
+                    <a href="#" data-translate="footer.privacy_link">Privacidad</a>
+                    <a href="#" data-translate="footer.cookies">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Recipe Detail Modal -->
+    <div id="recipeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="recipe-modal-header p-6 border-b">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h2 id="modalRecipeTitle" class="text-3xl font-bold mb-2" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="recipe_modal.loading">Cargando...</h2>
+                            <p id="modalRecipeChef" class="text-lg" style="color: var(--text-light);" data-translate="recipe_modal.by_chef">Por Chef...</p>
+                        </div>
+                        <button onclick="closeModal('recipeModal')" class="text-gray-500 hover:text-gray-700 text-2xl">
+                            ×
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="recipe-modal-content p-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="recipe-modal-image">
+                            <img id="modalRecipeImage" src="" alt="" class="w-full h-64 object-cover rounded-lg">
+                            <div class="mt-4 flex gap-4">
+                                <div class="flex items-center gap-2">
+                                    <span>⏱️</span>
+                                    <span id="modalRecipeTime" data-translate="recipe_modal.time_placeholder">0 min</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span>👨‍🍳</span>
+                                    <span id="modalRecipeDifficulty" data-translate="recipe_modal.difficulty_easy">Fácil</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span>💰</span>
+                                    <span id="modalRecipePrice" class="font-bold" style="color: var(--accent-color);">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recipe-modal-info">
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-3" style="color: var(--primary-color);" data-translate="recipe_modal.description">Descripción</h3>
+                                <p id="modalRecipeDescription" style="color: var(--text-color);" data-translate="recipe_modal.loading_description">Cargando descripción...</p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-3" style="color: var(--primary-color);" data-translate="recipe_modal.ingredients">Ingredientes</h3>
+                                <ul id="modalRecipeIngredients" class="list-disc list-inside space-y-1" style="color: var(--text-color);">
+                                    <li data-translate="recipe_modal.loading_ingredients">Cargando ingredientes...</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-3" style="color: var(--primary-color);" data-translate="recipe_modal.instructions">Instrucciones</h3>
+                                <ol id="modalRecipeInstructions" class="list-decimal list-inside space-y-2" style="color: var(--text-color);">
+                                    <li data-translate="recipe_modal.loading_instructions">Cargando instrucciones...</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <button id="modalBuyRecipeBtn" class="btn btn-primary flex-1" data-translate="recipe_modal.buy_recipe">
+                                    Comprar Receta
+                                </button>
+                                <button id="modalAddToFavoritesBtn" class="btn btn-outline" data-translate="recipe_modal.favorites">
+                                    ❤️ Favoritos
+                                </button>
+                            </div>
+                            <div class="mt-3">
+                                <button id="modalViewDetailBtn" class="btn btn-secondary w-full" data-translate="recipe_modal.view_full_detail">
+                                    Ver Detalle Completo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2 data-translate="login.welcome_back">Bienvenido de Vuelta</h2>
+                    <p style="color: var(--text-light);" data-translate="login.sign_in">Inicia sesión en tu cuenta</p>
+                </div>
+                
+                <div class="auth-form active">
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label data-translate="login.email">Email</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-translate="login.password">Contraseña</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="remember-forgot">
+                            <div class="remember">
+                                <input type="checkbox" id="remember">
+                                <label for="remember" data-translate="login.remember_me">Recordarme</label>
+                            </div>
+                            <a href="#" class="forgot-password" data-translate="login.forgot_password">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" data-translate="login.sign_in_button">
+                            Iniciar Sesión
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p><span data-translate="login.no_account">¿No tienes cuenta?</span> 
+                            <a href="#" onclick="closeModal('loginModal'); openModal('registerModal')" data-translate="login.register_here">Regístrate aquí</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2 data-translate="register.title">Únete a La Délicatesse</h2>
+                    <p style="color: var(--text-light);" data-translate="register.subtitle">Crea tu cuenta y comienza tu experiencia gastronómica</p>
+                </div>
+                
+                <div class="auth-form active">
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-translate="register.full_name">Nombre Completo</label>
+                                <input type="text" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-translate="register.email">Email</label>
+                                <input type="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-translate="register.phone">Teléfono</label>
+                                <input type="tel" name="telefono">
+                            </div>
+                            <div class="form-group">
+                                <label data-translate="register.user_type">Tipo de Usuario</label>
+                                <select name="tipo_usuario" required>
+                                    <option value="" data-translate="register.select">Seleccionar...</option>
+                                    <option value="cliente" data-translate="register.client">Cliente</option>
+                                    <option value="chef" data-translate="register.chef">Chef</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-translate="register.password">Contraseña</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="terms">
+                                <input type="checkbox" id="terms" required>
+                                <label for="terms"><span data-translate="register.accept">Acepto los</span> <a href="#" data-translate="register.terms">términos y condiciones</a> <span data-translate="register.and">y la</span> <a href="#" data-translate="register.privacy">política de privacidad</a></label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" data-translate="register.create_account">
+                            Crear Cuenta
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p><span data-translate="register.have_account">¿Ya tienes cuenta?</span> 
+                            <a href="#" onclick="closeModal('registerModal'); openModal('loginModal')" data-translate="register.login_here">Inicia sesión aquí</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <button onclick="closeModal('registerModal')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="booking-modal-header p-6 border-b">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="booking.modal.title">Reservar Chef</h2>
+                            <p id="bookingChefName" class="text-lg" style="color: var(--text-light);" data-translate="booking.modal.chef_placeholder">Chef...</p>
+                        </div>
+                        <button onclick="closeBookingModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+                            ×
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="booking-modal-content p-6">
+                    <form id="bookingForm">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="booking-form-left">
+                                <div class="form-group">
+                                    <label for="fechaServicio" data-translate="booking.date">Fecha del Servicio *</label>
+                                    <input type="date" id="fechaServicio" name="fecha_servicio" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="horaServicio" data-translate="booking.time">Hora del Servicio *</label>
+                                    <input type="time" id="horaServicio" name="hora_servicio" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="numeroComensales" data-translate="booking.guests">Número de Comensales *</label>
+                                    <select id="numeroComensales" name="numero_comensales" required>
+                                        <option value="" data-translate="booking.select">Seleccionar...</option>
+                                        <option value="1" data-translate="booking.person_one">1 persona</option>
+                                        <option value="2" data-translate="booking.person_two">2 personas</option>
+                                        <option value="3" data-translate="booking.person_three">3 personas</option>
+                                        <option value="4" data-translate="booking.person_four">4 personas</option>
+                                        <option value="5" data-translate="booking.person_five">5 personas</option>
+                                        <option value="6" data-translate="booking.person_six">6 personas</option>
+                                        <option value="7" data-translate="booking.person_seven">7 personas</option>
+                                        <option value="8" data-translate="booking.person_eight">8 personas</option>
+                                        <option value="9" data-translate="booking.person_nine">9 personas</option>
+                                        <option value="10" data-translate="booking.person_ten">10 personas</option>
+                                        <option value="mas" data-translate="booking.person_more">Más de 10 (especificar en descripción)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="duracionServicio" data-translate="booking.duration">Duración Estimada (horas) *</label>
+                                    <select id="duracionServicio" name="duracion_servicio" required>
+                                        <option value="" data-translate="booking.select">Seleccionar...</option>
+                                        <option value="2" data-translate="booking.hours_two">2 horas</option>
+                                        <option value="3" data-translate="booking.hours_three">3 horas</option>
+                                        <option value="4" data-translate="booking.hours_four">4 horas</option>
+                                        <option value="5" data-translate="booking.hours_five">5 horas</option>
+                                        <option value="6" data-translate="booking.hours_six">6 horas</option>
+                                        <option value="8" data-translate="booking.hours_eight">8 horas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="booking-form-right">
+                                <div class="form-group">
+                                    <label for="ubicacionServicio" data-translate="booking.location">Ubicación del Servicio *</label>
+                                    <textarea id="ubicacionServicio" name="ubicacion_servicio" rows="3" placeholder="Dirección completa donde se realizará el servicio" data-translate-placeholder="booking.location_placeholder" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="descripcionEvento" data-translate="booking.description">Descripción del Evento</label>
+                                    <textarea id="descripcionEvento" name="descripcion_evento" rows="4" placeholder="Describe el tipo de evento, preferencias culinarias, restricciones alimentarias, etc." data-translate-placeholder="booking.description_placeholder"></textarea>
+                                </div>
+                                
+                                <div class="booking-price-summary">
+                                    <div class="price-item">
+                                        <span data-translate="booking.hourly_rate">Tarifa por hora:</span>
+                                        <span id="chefHourlyRate">$0</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span data-translate="booking.duration_label">Duración:</span>
+                                        <span id="serviceDuration">0 horas</span>
+                                    </div>
+                                    <div class="price-item total">
+                                        <span data-translate="booking.total">Total Estimado:</span>
+                                        <span id="totalPrice">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-form-footer mt-6">
+                            <div class="flex gap-3">
+                                <button type="button" onclick="closeBookingModal()" class="btn btn-outline flex-1" data-translate="booking.cancel">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary flex-1" data-translate="booking.submit">
+                                    Enviar Solicitud de Reserva
+                                </button>
+                            </div>
+                            <p class="text-sm mt-3" style="color: var(--text-light); text-align: center;" data-translate="booking.confirmation_message">
+                                El chef recibirá tu solicitud y te confirmará la disponibilidad en las próximas 24 horas.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

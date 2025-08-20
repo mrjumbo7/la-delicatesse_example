@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Chefs - La Délicatesse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/chef-recipe.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed w-full top-0 z-40" style="box-shadow: var(--shadow);">
+        <div class="container">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/la-delicateesse.svg" alt="La Délicatesse" class="logo-svg">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="nav-container">
+                    <nav>
+                        <ul>
+                            <li><a href="index.html" data-translate="navbar.home">Inicio</a></li>
+                            <li><a href="#" class="active" data-translate="navbar.chefs">Chefs</a></li>
+                            <li><a href="recipes-catalog.html" data-translate="navbar.recipes">Recetas</a></li>
+                            <li>
+                            <button id="languageToggle" onclick="changeLanguage(window.currentLanguage === 'en' ? 'es' : 'en')" class="btn btn-outline-sm" data-translate="languageToggle">EN</button>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <!-- Auth Buttons -->
+                    <div id="authButtons" class="auth-buttons">
+                        <button onclick="openModal('loginModal')" class="btn btn-primary" data-translate="auth.login">
+                            Iniciar Sesión
+                        </button>
+                        <button onclick="openModal('registerModal')" class="btn btn-outline" data-translate="auth.register">
+                            Registrarse
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-toggle">
+                    <span id="menuIcon">☰</span>
+                    <span id="closeIcon" style="display: none;">✕</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24">
+        <section class="py-12">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-translate="chefs_catalog.badge">Nuestros Expertos</div>
+                    <h2 data-translate="chefs_catalog.title">Catálogo Completo de Chefs</h2>
+                    <p data-translate="chefs_catalog.subtitle">Explora nuestra selección completa de chefs profesionales y encuentra el experto perfecto para tu experiencia culinaria.</p>
+                    <div class="header-decoration">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="mb-12 flex flex-col lg:flex-row gap-4 justify-center max-w-4xl mx-auto">
+                    <div class="form-group flex-1">
+                        <input type="text" id="searchChefs" placeholder="Buscar por nombre o especialidad..." data-translate-placeholder="chefs_catalog.search_placeholder" class="w-full">
+                    </div>
+                    <div class="form-group">
+                        <select id="filterLocation" class="w-full lg:w-auto">
+                            <option value="" data-translate="chefs_catalog.all_locations">Todas las ubicaciones</option>
+                            <option value="San Salvador" data-translate="chefs_catalog.san_salvador">San Salvador</option>
+                            <option value="Santa Tecla" data-translate="chefs_catalog.santa_tecla">Santa Tecla</option>
+                            <option value="Antiguo Cuscatlán" data-translate="chefs_catalog.antiguo_cuscatlan">Antiguo Cuscatlán</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="filterSpecialty" class="w-full lg:w-auto">
+                            <option value="" data-translate="chefs_catalog.all_specialties">Todas las especialidades</option>
+                            <option value="Cocina Internacional" data-translate="chefs_catalog.international_cuisine">Cocina Internacional</option>
+                            <option value="Cocina Italiana" data-translate="chefs_catalog.italian_cuisine">Cocina Italiana</option>
+                            <option value="Cocina Francesa" data-translate="chefs_catalog.french_cuisine">Cocina Francesa</option>
+                            <option value="Cocina Asiática" data-translate="chefs_catalog.asian_cuisine">Cocina Asiática</option>
+                            <option value="Repostería" data-translate="chefs_catalog.pastry">Repostería</option>
+                        </select>
+                    </div>
+                    <button onclick="searchChefs()" class="btn btn-primary" data-translate="chefs_catalog.search_button">
+                        Buscar
+                    </button>
+                </div>
+
+                <!-- Grid de Chefs -->
+                <div id="chefsGrid" class="chef-cards">
+                    <!-- Los chefs se cargarán dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--dark-bg); color: var(--light-text);" class="py-16">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 data-translate="footer.about_us">Acerca de Nosotros</h3>
+                    <p data-translate="footer.description">Conectamos clientes con chefs certificados para experiencias gastronómicas únicas en la comodidad de tu hogar.</p>
+                </div>
+                <div class="footer-column">
+                    <h3 data-translate="footer.quick_links">Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html" data-translate="navbar.home">Inicio</a></li>
+                        <li><a href="#" data-translate="navbar.chefs">Chefs</a></li>
+                        <li><a href="recipes-catalog.html" data-translate="navbar.recipes">Recetas</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright" data-translate="footer.copyright">
+                    &copy; 2025 La Délicatesse. Todos los derechos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="booking-modal-header p-6 border-b">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-color); font-family: var(--font-heading);" data-translate="booking.title">Reservar Chef</h2>
+                            <p id="bookingChefName" class="text-lg" style="color: var(--text-light);" data-translate="booking.chef_placeholder">Chef...</p>
+                        </div>
+                        <button onclick="closeModal('bookingModal')" class="text-gray-500 hover:text-gray-700 text-2xl">
+                            ×
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="booking-modal-content p-6">
+                    <form id="bookingForm">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="booking-form-left">
+                                <div class="form-group">
+                                    <label for="fechaServicio" data-translate="booking.service_date">Fecha del Servicio *</label>
+                                    <input type="date" id="fechaServicio" name="fecha_servicio" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="horaServicio" data-translate="booking.service_time">Hora del Servicio *</label>
+                                    <input type="time" id="horaServicio" name="hora_servicio" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="numeroComensales" data-translate="booking.number_of_guests">Número de Comensales *</label>
+                                    <select id="numeroComensales" name="numero_comensales" required>
+                                        <option value="" data-translate="booking.select_option">Seleccionar...</option>
+                                        <option value="1" data-translate="booking.1_person">1 persona</option>
+                                        <option value="2" data-translate="booking.2_people">2 personas</option>
+                                        <option value="3" data-translate="booking.3_people">3 personas</option>
+                                        <option value="4" data-translate="booking.4_people">4 personas</option>
+                                        <option value="5" data-translate="booking.5_people">5 personas</option>
+                                        <option value="6" data-translate="booking.6_people">6 personas</option>
+                                        <option value="7" data-translate="booking.7_people">7 personas</option>
+                                        <option value="8" data-translate="booking.8_people">8 personas</option>
+                                        <option value="9" data-translate="booking.9_people">9 personas</option>
+                                        <option value="10" data-translate="booking.10_people">10 personas</option>
+                                        <option value="mas" data-translate="booking.more_than_10">Más de 10 (especificar en descripción)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="duracionServicio" data-translate="booking.estimated_duration">Duración Estimada (horas) *</label>
+                                    <select id="duracionServicio" name="duracion_servicio" required>
+                                        <option value="" data-translate="booking.select_option">Seleccionar...</option>
+                                        <option value="2" data-translate="booking.2_hours">2 horas</option>
+                                        <option value="3" data-translate="booking.3_hours">3 horas</option>
+                                        <option value="4" data-translate="booking.4_hours">4 horas</option>
+                                        <option value="5" data-translate="booking.5_hours">5 horas</option>
+                                        <option value="6" data-translate="booking.6_hours">6 horas</option>
+                                        <option value="8" data-translate="booking.8_hours">8 horas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="booking-form-right">
+                                <div class="form-group">
+                                    <label for="ubicacionServicio" data-translate="booking.service_location">Ubicación del Servicio *</label>
+                                    <textarea id="ubicacionServicio" name="ubicacion_servicio" rows="3" placeholder="Dirección completa donde se realizará el servicio" data-translate-placeholder="booking.location_placeholder" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="descripcionEvento" data-translate="booking.event_description">Descripción del Evento</label>
+                                    <textarea id="descripcionEvento" name="descripcion_evento" rows="4" placeholder="Describe el tipo de evento, preferencias culinarias, restricciones alimentarias, etc." data-translate-placeholder="booking.description_placeholder"></textarea>
+                                </div>
+                                
+                                <div class="booking-price-summary">
+                                    <div class="price-item">
+                                        <span data-translate="booking.hourly_rate">Tarifa por hora:</span>
+                                        <span id="chefHourlyRate">$0</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span data-translate="booking.duration">Duración:</span>
+                                        <span id="serviceDuration" data-translate="booking.hours_unit">0 horas</span>
+                                    </div>
+                                    <div class="price-item total">
+                                        <span data-translate="booking.estimated_total">Total Estimado:</span>
+                                        <span id="totalPrice">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-form-footer mt-6">
+                            <div class="flex gap-3">
+                                <button type="button" onclick="closeModal('bookingModal')" class="btn btn-outline flex-1" data-translate="booking.cancel">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary flex-1" data-translate="booking.send_request">
+                                    Enviar Solicitud de Reserva
+                                </button>
+                            </div>
+                            <p class="text-sm mt-3" style="color: var(--text-light); text-align: center;" data-translate="booking.confirmation_message">
+                                El chef recibirá tu solicitud y te confirmará la disponibilidad en las próximas 24 horas.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-translate="auth.login_title">Iniciar Sesión</h3>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail" data-translate="auth.email">Email</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword" data-translate="auth.password">Contraseña</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" data-translate="auth.login">Iniciar Sesión</button>
+                </form>
+                <div class="text-center mt-4">
+                    <p data-translate="auth.no_account">¿No tienes cuenta? <a href="#" onclick="switchModal('loginModal', 'registerModal')" class="text-primary" data-translate="auth.register_link">Regístrate</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-translate="auth.register_title">Registrarse</h3>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerName" data-translate="auth.full_name">Nombre Completo</label>
+                        <input type="text" id="registerName" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail" data-translate="auth.email">Email</label>
+                        <input type="email" id="registerEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhone" data-translate="auth.phone">Teléfono</label>
+                        <input type="tel" id="registerPhone" name="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword" data-translate="auth.password">Contraseña</label>
+                        <input type="password" id="registerPassword" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerUserType" data-translate="auth.user_type">Tipo de Usuario</label>
+                        <select id="registerUserType" name="tipo_usuario" required>
+                            <option value="cliente" data-translate="auth.client">Cliente</option>
+                            <option value="chef" data-translate="auth.chef">Chef</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" data-translate="auth.register">Registrarse</button>
+                </form>
+                <div class="text-center mt-4">
+                    <p data-translate="auth.have_account">¿Ya tienes cuenta? <a href="#" onclick="switchModal('registerModal', 'loginModal')" class="text-primary" data-translate="auth.login_link">Inicia Sesión</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/catalog.js"></script>
+</body>
+</html>
