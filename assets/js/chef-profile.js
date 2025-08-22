@@ -299,6 +299,8 @@ function displayChefRecipes() {
                 return;
             }
             
+            console.log(`📝 Generando tarjeta para receta ${index+1}: ID=${recipe.id}, Nombre=${recipe.nombre}`);
+            
             const recipeCard = `
                 <div class="recipe-card bg-white rounded-lg overflow-hidden" style="box-shadow: var(--shadow);">
                     <div class="recipe-image">
@@ -637,6 +639,16 @@ function generateStars(rating) {
 
 // View recipe function
 function viewRecipe(recipeId) {
+    console.log('🔗 Navegando a receta con ID:', recipeId);
+    console.log('📍 URL destino:', `recipe-detail.html?id=${recipeId}`);
+    
+    // Verificar que el ID de la receta es válido
+    if (!recipeId || recipeId === 'undefined' || recipeId === 'null') {
+        console.error('❌ ID de receta inválido:', recipeId);
+        showToast('Error: ID de receta inválido', 'error');
+        return;
+    }
+    
     // Redirect to recipe detail page
     window.location.href = `recipe-detail.html?id=${recipeId}`;
 }

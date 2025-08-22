@@ -29,6 +29,7 @@
                 
                 <!-- Desktop Actions -->
                 <div id="authButtons" class="header-actions">
+                    <button id="languageToggle" onclick="changeLanguage(window.currentLanguage === 'en' ? 'es' : 'en')" class="btn btn-outline-sm" data-translate="languageToggle">ES</button>
                     <button class="btn btn-outline" onclick="openModal('loginModal')" data-translate="login.sign_in_button">Iniciar Sesión</button>
                     <button class="btn btn-primary" onclick="openModal('registerModal')" data-translate="register.create_account">Registrarse</button>
                 </div>
@@ -349,6 +350,7 @@
         </div>
     </div>
 
+    <script src="assets/js/translations.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/recipe-detail.js"></script>
 </body>

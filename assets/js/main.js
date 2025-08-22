@@ -33,7 +33,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   // Translate the page
   translatePage()
-  updateLanguageToggle()
+  
+  // Update language toggle after a small delay to ensure DOM is ready
+  setTimeout(() => {
+    updateLanguageToggle()
+  }, 100)
 })
 
 // Setup booking event listeners
@@ -421,6 +425,11 @@ function closeModal(modalId) {
     modal.classList.add("hidden")
     document.body.style.overflow = "auto"
   }
+}
+
+function switchModal(currentModalId, targetModalId) {
+  closeModal(currentModalId)
+  openModal(targetModalId)
 }
 
 function closeBookingModal() {

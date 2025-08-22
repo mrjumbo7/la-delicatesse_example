@@ -25,7 +25,7 @@ try {
     
     // Consulta base para obtener información del perfil
     $profileQuery = "SELECT u.id, u.nombre, u.email, u.telefono, u.fecha_registro, pc.*, 
-              COALESCE(t.titulo, u.nombre) as titulo_traducido,
+              u.nombre as titulo_traducido,
               COALESCE(t.descripcion, pc.biografia) as biografia_traducida,
               COALESCE(t.especialidad, pc.especialidad) as especialidad_traducida
               FROM usuarios u
@@ -108,16 +108,32 @@ try {
     }
     $reviewsStmt->close();
     
-    // Obtener recetas del chef
-    $recipesQuery = "SELECT r.id, r.titulo as nombre, r.descripcion as descripcion_corta, 
-                     r.tiempo_preparacion, r.dificultad, r.precio, r.imagen,
-                     r.fecha_publicacion, r.ingredientes, r.instrucciones
-                     FROM recetas r
-                     WHERE r.chef_id = ? AND r.activa = 1
-                     ORDER BY r.fecha_publicacion DESC";
-    
-    $recipesStmt = $db->prepare($recipesQuery);
-    $recipesStmt->bind_param('i', $chef_id);
+    // Obtener recetas del chef con soporte para traducción
+    if ($language === 'es') {
+        $recipesQuery = "SELECT r.id, r.titulo as nombre, r.titulo, r.descripcion as descripcion_corta, 
+                         r.tiempo_preparacion, r.dificultad, r.precio, r.imagen,
+                         r.fecha_publicacion, r.ingredientes, r.instrucciones
+                         FROM recetas r
+                         WHERE r.chef_id = ? AND r.activa = 1
+                         ORDER BY r.fecha_publicacion DESC";
+        $recipesStmt = $db->prepare($recipesQuery);
+        $recipesStmt->bind_param('i', $chef_id);
+    } else {
+        $recipesQuery = "SELECT r.id, 
+                         COALESCE(t.titulo, r.titulo) as nombre,
+                         COALESCE(t.titulo, r.titulo) as titulo,
+                         COALESCE(t.descripcion, r.descripcion) as descripcion_corta,
+                         r.tiempo_preparacion, r.dificultad, r.precio, r.imagen,
+                         r.fecha_publicacion,
+                         COALESCE(t.ingredientes, r.ingredientes) as ingredientes,
+                         COALESCE(t.instrucciones, r.instrucciones) as instrucciones
+                         FROM recetas r
+                         LEFT JOIN traducciones_recetas t ON r.id = t.receta_id AND t.idioma = ?
+                         WHERE r.chef_id = ? AND r.activa = 1
+                         ORDER BY r.fecha_publicacion DESC";
+        $recipesStmt = $db->prepare($recipesQuery);
+        $recipesStmt->bind_param('si', $language, $chef_id);
+    }
     $recipesStmt->execute();
     $result = $recipesStmt->get_result();
     $recipes = [];

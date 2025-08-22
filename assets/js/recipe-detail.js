@@ -142,7 +142,12 @@ async function loadRecipeData() {
         const urlParams = new URLSearchParams(window.location.search);
         const recipeId = urlParams.get('id') || localStorage.getItem("selectedRecipeId");
         
+        console.log('🔍 Cargando receta con ID:', recipeId);
+        console.log('📍 URL actual:', window.location.href);
+        console.log('🔗 Parámetros URL:', urlParams.toString());
+        
         if (!recipeId) {
+            console.error('❌ No se encontró ID de receta');
             showToast("No se encontró el ID de la receta", "error");
             window.location.href = "recipes-catalog.html";
             return;
@@ -152,24 +157,36 @@ async function loadRecipeData() {
         
         // Load recipe details with translation support
         const currentLang = window.currentLanguage || 'es';
-        const response = await fetch(`api/recipes/get_translated.php?recipe_id=${recipeId}&language=${currentLang}`);
+        const apiUrl = `api/recipes/get_translated.php?recipe_id=${recipeId}&language=${currentLang}`;
+        console.log('🌐 Consultando API:', apiUrl);
+        
+        const response = await fetch(apiUrl);
+        console.log('📡 Respuesta HTTP status:', response.status, response.statusText);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const result = await response.json();
+        console.log('📦 Datos recibidos del API:', result);
 
         if (result.success && result.data) {
             recipeData = result.data;
+            console.log('✅ Datos de receta cargados correctamente:', recipeData);
             updateRecipeUI();
             
             // Load related recipes
             loadRelatedRecipes(recipeData.chef_id);
         } else {
-            showToast("No se pudo cargar la información de la receta", "error");
+            console.error('❌ API respondió con error:', result.message || 'Error desconocido');
+            showToast(`No se pudo cargar la información de la receta: ${result.message || 'Error desconocido'}`, "error");
             setTimeout(() => {
                 window.location.href = "recipes-catalog.html";
             }, 2000);
         }
     } catch (error) {
-        console.error("Error loading recipe data:", error);
-        showToast("Error al cargar los datos de la receta", "error");
+        console.error("💥 Error loading recipe data:", error);
+        showToast(`Error al cargar los datos de la receta: ${error.message}`, "error");
     } finally {
         hideLoading();
     }
@@ -250,7 +267,8 @@ function updateRecipeUI() {
 // Load related recipes
 async function loadRelatedRecipes(chefId) {
     try {
-        const response = await fetch(`api/recipes/list.php?chef_id=${chefId}`);
+        const currentLang = window.currentLanguage || 'es';
+        const response = await fetch(`api/recipes/list.php?chef_id=${chefId}&language=${currentLang}`);
         const result = await response.json();
 
         if (result.success) {

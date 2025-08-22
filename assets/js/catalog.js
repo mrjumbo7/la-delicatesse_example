@@ -58,7 +58,8 @@ function setupCatalogEventListeners() {
 // Load all chefs for catalog
 async function loadAllChefs() {
     try {
-        const response = await fetch("api/chefs/list.php")
+        const currentLang = window.currentLanguage || 'es'
+        const response = await fetch(`api/chefs/list.php?language=${currentLang}`)
         const result = await response.json()
 
         if (result.success) {
@@ -156,7 +157,8 @@ function searchChefsCatalog() {
 // Load all recipes for catalog
 async function loadAllRecipes() {
     try {
-        const response = await fetch("api/recipes/list.php")
+        const currentLang = window.currentLanguage || 'es'
+        const response = await fetch(`api/recipes/list.php?language=${currentLang}`)
         const result = await response.json()
 
         if (result.success) {
@@ -233,7 +235,8 @@ async function loadRecipeModal(recipeId) {
     try {
         showLoading()
         
-        const response = await fetch(`api/recipes/list.php?id=${recipeId}`)
+        const currentLang = window.currentLanguage || 'es'
+        const response = await fetch(`api/recipes/list.php?id=${recipeId}&language=${currentLang}`)
         const result = await response.json()
         
         if (result.success && result.data.length > 0) {

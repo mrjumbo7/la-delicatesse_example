@@ -223,15 +223,7 @@ async function loadUserProfile() {
       document.getElementById("nombre").value = profile.nombre || ""
       document.getElementById("email").value = profile.email || ""
       document.getElementById("telefono").value = profile.telefono || ""
-      document.getElementById("direccion").value = profile.direccion || ""
-      
-      // Si hay fecha de nacimiento, llenarla también
-      if (profile.fecha_nacimiento) {
-        const fechaNacInput = document.getElementById("fecha_nacimiento")
-        if (fechaNacInput) {
-          fechaNacInput.value = profile.fecha_nacimiento
-        }
-      }
+      // Campos direccion y fecha_nacimiento eliminados - no se utilizan en la aplicación
     }
   } catch (error) {
     console.error("Error loading profile:", error)
@@ -1318,10 +1310,10 @@ function addMessageToDisplay(messageData) {
   if (!messagesContainer) return
   
   const messageHtml = `
-    <div class="message sent mb-4">
-      <div class="bg-blue-500 text-white ml-auto max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
+    <div class="message sent">
+      <div class="message-bubble">
         <p class="text-sm">${messageData.mensaje}</p>
-        <span class="text-xs opacity-75">${formatDate(messageData.fecha_envio)}</span>
+        <span class="message-time">${formatDate(messageData.fecha_envio)}</span>
       </div>
     </div>
   `
@@ -1363,9 +1355,9 @@ async function sendProfileMessage() {
     
     if (result.success) {
       messageInput.value = ''
-      // Agregar el mensaje directamente sin recargar todo
-      addMessageToDisplay(result.data)
-      // Solo recargar conversaciones para actualizar el último mensaje
+      // Recargar mensajes para mostrar el nuevo mensaje
+      await loadProfileMessages(currentProfileConversation)
+      // Recargar conversaciones para actualizar el último mensaje
       await loadProfileConversations()
       showToast('Mensaje enviado', 'success')
     } else {

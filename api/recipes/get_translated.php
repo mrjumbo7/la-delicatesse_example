@@ -64,7 +64,7 @@ try {
     
     echo json_encode([
         'success' => true,
-        'recipe' => $recipe
+        'data' => $recipe
     ]);
     
 } catch (Exception $e) {
